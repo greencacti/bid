@@ -17,7 +17,7 @@ import java.io.FileReader;
 public class Bid {
     private static int LONG_DELAY = 1000;
 
-    private static int SHORT_DELAY = 100;
+    private static int SHORT_DELAY = 300;
 
     private static Robot robot;
 
@@ -43,11 +43,12 @@ public class Bid {
         robot.mouseMove(680, 495);
         robot.mousePress(InputEvent.BUTTON1_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
+        robot.delay(SHORT_DELAY);
 
         // get the security code
-        String securityCode = getSecurityCode(922, 458, 110, 30);
+        String securityCode = getSecurityCode(919, 460, 110, 30);
         while(securityCode == null || securityCode.equals("") || !isValid(securityCode)) {
-            securityCode = getSecurityCode(922, 458, 110, 30);
+            securityCode = getSecurityCode(919, 460, 110, 30);
         }
 
         // input the username and the password
@@ -65,20 +66,19 @@ public class Bid {
 
     private static void firstRoundBid() throws Exception {
         // enter the price
-        robot.delay(LONG_DELAY);
+        robot.delay(SHORT_DELAY);
         RobotUtil.pressKeyString(robot, "100");
-        robot.delay(SHORT_DELAY);
         RobotUtil.pressKey(robot, '\t');
-        robot.delay(SHORT_DELAY);
         RobotUtil.pressKeyString(robot, "100");
 
         // issue the price
         robot.mouseMove(1040, 410);
         robot.mousePress(InputEvent.BUTTON1_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
+        robot.delay(SHORT_DELAY);
 
         // get the security code
-        String securityCode = getSecurityCode(730, 395, 110, 30);
+        String securityCode = getSecurityCode(728, 393, 110, 30);
         while(securityCode == null || securityCode.equals("") || !isValid(securityCode)) {
             // cancel the input
             robot.mouseMove(785, 495);
@@ -89,9 +89,10 @@ public class Bid {
             robot.mouseMove(1040, 410);
             robot.mousePress(InputEvent.BUTTON1_MASK);
             robot.mouseRelease(InputEvent.BUTTON1_MASK);
+            robot.delay(SHORT_DELAY);
 
             // get th security code
-            securityCode = getSecurityCode(730, 395, 110, 30);
+            securityCode = getSecurityCode(728, 393, 110, 30);
         }
 
         // set the security code
