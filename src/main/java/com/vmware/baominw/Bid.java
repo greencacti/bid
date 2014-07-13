@@ -21,7 +21,11 @@ public class Bid {
 
     private static int SHORT_DELAY = 300;
 
-    private static String PRICE_ISSUE_TIME = "54:55";
+    private static String PRICE_ISSUE_TIME = "57:55";
+
+    private static String BID_ID = "52313733";
+
+    private static String BID_PASSWORD = "2378";
 
     private static int priceIssueMinute;
 
@@ -69,9 +73,9 @@ public class Bid {
         }
 
         // input the username and the password
-        RobotUtil.pressKeyString(robot, "52313733");
+        RobotUtil.pressKeyString(robot, BID_ID);
         RobotUtil.pressKey(robot, '\t');
-        RobotUtil.pressKeyString(robot, "2378");
+        RobotUtil.pressKeyString(robot, BID_PASSWORD);
         RobotUtil.pressKey(robot, '\t');
         RobotUtil.pressKeyString(robot, securityCode);
 
