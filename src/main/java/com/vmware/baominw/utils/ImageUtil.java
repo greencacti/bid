@@ -9,13 +9,13 @@ import java.io.File;
  * Created by wanghuaiyu on 2014/7/6.
  */
 public class ImageUtil {
-    public static BufferedImage handleImage(BufferedImage caputuredImage) throws Exception {
-        ImageIO.write(caputuredImage, "bmp", new File("E:\\Bid\\old.bmp"));
+    public static BufferedImage handleImage(BufferedImage image) throws Exception {
+        ImageIO.write(image, "bmp", new File("E:\\Bid\\old.bmp"));
         // clean the image
-        BufferedImage cleanImage = cleanImage(caputuredImage);
+        image = cleanImage(image);
 
         // transform to monochrome image
-        BufferedImage monochromeImage = generateSingleColorBitMap(cleanImage);
+        BufferedImage monochromeImage = generateSingleColorBitMap(image);
 
         return monochromeImage;
     }
@@ -149,6 +149,39 @@ public class ImageUtil {
                 for (k = x; (k >= 0) && (x - k < height); k--) {
                     if ((k < weight) && (image.getRGB(k, x - k) == disturbColor)) {
                         image.setRGB(k, x - k, 0xFFFFFFFF);
+                    }
+                }
+            }
+        }
+
+        // remove the left disturb line
+        count = 0;
+        boolean leftDisturbLineFound = false;
+        for (x = 1; x < weight/4; x++) {
+            int PointXY = image.getRGB(x, height - 1);
+            int PointXminus1Yminus1 = image.getRGB(x - 1, height - 2);
+            if ((PointXY != 0xFFFFFFFF) && (PointXY == PointXminus1Yminus1)) {
+                count++;
+                if (count == 1) {
+                    matchedX1 = x;
+                } else {
+                    matchedX2 = x;
+                }
+            }
+
+            if (count == 2) {
+                disturbColor = PointXY;
+                leftDisturbLineFound = true;
+                break;
+            }
+        }
+
+        if (leftDisturbLineFound) {
+            delta = matchedX2 - matchedX1;
+            for (x = matchedX1; x < (weight + height); x += delta) {
+                for (k = x; (k >= 0) && (x - k < height); k--) {
+                    if ((k < weight) && (image.getRGB(k, height - 1 - (x - k)) == disturbColor)) {
+                        image.setRGB(k, height - 1 - (x - k), 0xFFFFFFFF);
                     }
                 }
             }

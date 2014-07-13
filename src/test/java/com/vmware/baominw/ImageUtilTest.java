@@ -14,7 +14,7 @@ import java.io.File;
 public class ImageUtilTest {
     @Test
     public void testCleanImage() throws Exception {
-        BufferedImage image = ImageIO.read(new File("E:\\Bid\\array.bmp"));
+        BufferedImage image = ImageIO.read(new File("E:\\Bid\\leftslash.bmp"));
 
         BufferedImage cleanImage = ImageUtil.cleanImage(image);
         ImageIO.write(cleanImage, "bmp", new File("E:\\Bid\\new.bmp"));
